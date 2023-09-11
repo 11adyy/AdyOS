@@ -8,7 +8,6 @@
 #include "memory.h"
 #include "vbe.h"
 #include "mbr.h"
-#include "stdlib.h"
 
 uint8_t* KernelLoadBuffer   = (uint8_t*)MEMORY_LOAD_KERNEL;
 uint8_t* Kernel             = (uint8_t*)MEMORY_KERNEL_ADDR;
@@ -35,7 +34,7 @@ void __attribute__((cdecl)) start(uint16_t bootDrive, void* partition) {
     }
 
     // load kernel
-    FAT_file* fatFile = FAT_open(&part, "/boot/kernel.bin");
+    FAT_file* fatFile = FAT_open(&part, "/boot/kernel.elf");
     uint32_t read;
     uint8_t* kernelBuffer = Kernel;
 
