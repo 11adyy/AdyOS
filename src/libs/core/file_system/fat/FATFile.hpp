@@ -5,8 +5,6 @@
 #include "../fat/FATHeaders.hpp"
 #include "../fat/FATFileEntry.hpp"
 
-class FATFileSystem;
-
 class FATFile : public File {
     public:
         FATFile();
