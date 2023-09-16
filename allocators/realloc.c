@@ -1,5 +1,5 @@
-#include "malloc.h"
-#include "free.h"
+#include "malloc.c"
+#include "free.c"
 #include "realloc.h"
 
 /*

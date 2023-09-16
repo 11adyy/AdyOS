@@ -2,8 +2,6 @@
 #include "Keyboard.h"
 #include "memory/memory.h"
 
-#include "memory/allocators/string_alloc.h"
-
 #include <arch/i686/io.h>
 
 /* KBDUS means US Keyboard Layout. This is a scancode table
@@ -11,7 +9,7 @@
 *  comments in to give you an idea of what key is what, even
 *  though I set it's array index to 0. You can change that to
 *  whatever you want using a macro, if you wish! */
-unsigned char alphabet[128] = {
+unsigned char kbdus[128] = {
     0,  27, '1', '2', '3', '4', '5', '6', '7', '8',	                    /* 9 */
     '9', '0', '-', '=', '\b',	                                        /* Backspace */
     '\t',			                                                    /* Tab */
@@ -51,42 +49,28 @@ unsigned char alphabet[128] = {
 };
 
 
-char* keyboard_read() {
-    free_string();
+void keyboard_read(char* string) {
+    int position = 0;
 
-    char* input         = NULL;
-    size_t input_size   = 0;
-
-    while(1) {
+    while (position < 29) {
         if (i686_inb(0x64) & 0x1) {
-        char character = i686_inb(0x60);
+            char character = i686_inb(0x60);
 
             if (character & 0x80) {
                 character &= 0x7F;
 
-                char currentCharacter = alphabet[character];
+                char currentCharacter = kbdus[character];
                 if (currentCharacter != '\n') {
                     printf("%c", currentCharacter);
 
-                    // Reallocate memory to accommodate the new character
-                    char* temp = allocate_string(input, ++input_size + 1);
-                    if (temp == NULL) {
-                        printf("\r\nMemory allocation failed\n");
-                        free_string();
-
-                        return NULL;
-                    }
-
-                    input = temp;
-
-                    input[input_size - 1]   = currentCharacter;
-                    input[input_size]       = '\0';
+                    *string = currentCharacter;
+                    ++string;
                 } 
                 else 
                     break;
             }
+
+            position++;
         }
     }
-    
-    return input;
 }

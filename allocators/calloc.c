@@ -1,4 +1,4 @@
-#include "malloc.h"
+#include "malloc.c"
 #include "calloc.h"
 
 /*
