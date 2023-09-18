@@ -19,8 +19,6 @@
 
 extern void _init();
 
-char* currentPassword;
-
 void start(BootParams* bootParams) {
     _init();                            // global constructors
     mm_init(0x50000);                   // Kernel Load is 0x50000 and kernel size is 0x00010000. Malloc start in 0x50000
@@ -38,15 +36,32 @@ void start(BootParams* bootParams) {
 
     log_debug("Main.c", "Boot device: %x", bootParams->BootDevice);
     
-    currentPassword = (char*)malloc(6);
-    strcpy(currentPassword, "12345\0");
-
     while (1) {
         printf("\r\n[Ady OS]: ");
 
         char* command = keyboard_read(1);
-        execute_command(command);
+        if (strstr(command, "help") == 0)              
+            help_command();
+        else if (strstr(command, "Ady") == 0) {
+            char* AdyCommand = command + strlen("Ady") + 1; 
+
+            printf("\r\n[PASSWORD]: ");
+            char* password = keyboard_read(0);
+            while (strcmp(password, "12345") != 0) {
+                printf("\r\nIncorrect password, try again.\r\n[PASSWORD]: ");
+                free(password);
+
+                password = keyboard_read(0);
+            }
+
+            free(password);
+
+            if (strstr(AdyCommand, "test") == 0)
+                shut_down_command();
+        } else 
+            printf("\r\nUnknown command. Maybe you forgot Ady?");
             
+
         free(command);
     }
 
@@ -54,49 +69,17 @@ end:
     for (;;);
 }
 
-void execute_command(char* command) {
-    if (strstr(command, "help") == 0) {
-        printf("\r\n> Use help for getting help");
-        printf("\r\n> Use clear for screen cleaning");
-        printf("\r\n> Use echo for echo");
-        printf("\r\n> Use setpas for setting password for Ady");
-        printf("\r\n> Use Ady for using Ady commands");
-    }
-    else if (strstr(command, "clear") == 0) 
-        VGA_clrscr();
-    else if (strstr(command, "echo") == 0) {
-        char* echo = command + strlen("echo") + 1; 
-        printf("\r\n%s", echo);
-    }
-    else if (strstr(command, "Ady") == 0) {
-        char* AdyCommand = command + strlen("Ady") + 1; 
+// Help command
+void help_command() {
+    printf("\r\n> Use help for getting help");
+    printf("\r\n> Use shut-down for shut down");
+    printf("\r\n> Test line");
+    printf("\r\n> Test line");
+    printf("\r\n> Test line");
+}
 
-        printf("\r\n[PASSWORD]: ");
-        char* password = keyboard_read(0);
-        while (strcmp(password, currentPassword) != 0) {
-            printf("\r\nIncorrect password, try again.\r\n[PASSWORD]: ");
-            free(password);
-
-            password = keyboard_read(0);
-        }
-
-        free(password);
-
-        if (strstr(AdyCommand, "setpas") == 0) {
-            char* newPassword = AdyCommand + strlen("setpas") + 1; 
-            free((void*)currentPassword);
-
-            char* buffer = (char*)malloc(strlen(newPassword) + 1);
-            memset(buffer, 0, sizeof(buffer));
-            if (buffer == NULL)
-                return;
-
-            strcpy(buffer, newPassword);
-
-            currentPassword                             = buffer;
-            currentPassword[strlen(currentPassword)]    = '\0';
-        }
-    } else 
-        printf("\r\nUnknown command. Maybe you forgot Ady?");
-            
+// Shut down command
+void shut_down_command() {
+    printf("\r\n> Shut-down test");
+    printf("\r\n> Test line");
 }
