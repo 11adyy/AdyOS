@@ -1,7 +1,9 @@
-#include "../include/string.h"
-#include "../include/stdio.h"
+#include "../include/Ady_nano.h"
 
-#include "../Keyboard.h"
+#include "../../include/string.h"
+#include "../../include/stdio.h"
+
+#include "../include/Keyboard.h"
 
 char* Ady_nano_editor(char* previous_data) {
     VGA_clrscr();
