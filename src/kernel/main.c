@@ -10,7 +10,7 @@
 #include <include/irq.h>
 #include <include/io.h>
 
-#include "shell/shell.h"
+#include "shell/include/shell.h"
 
 extern void _init();
 
