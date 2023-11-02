@@ -1,1 +1,0 @@
-CMakeLists.txt not found in /home/11adyy/Desktop/AdyOS.EXMPL Select CMakeLists.txt
