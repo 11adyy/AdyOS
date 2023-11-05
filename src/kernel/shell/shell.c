@@ -68,33 +68,15 @@ void shell() {
     }
 }
 
-
-//       ___          ___          ___          ___         ___          ___  ___                       ___          ___     
-//      /\  \        /\  \        /\  \        /\  \       /\  \        /\__\/\__\                     /\  \        /\  \    
-//     /::\  \      /::\  \      /::\  \      /::\  \     /::\  \      /:/  /:/  /                    /::\  \      /::\  \   
-//    /:/\:\  \    /:/\:\  \    /:/\:\  \    /:/\:\  \   /:/\:\  \    /:/  /:/  /                    /:/\:\  \    /:/\ \  \  
-//   /:/  \:\  \  /:/  \:\  \  /::\~\:\  \  /:/  \:\__\ /::\~\:\  \  /:/  /:/  /                    /:/  \:\  \  _\:\~\ \  \ 
-//  /:/__/ \:\__\/:/__/ \:\__\/:/\:\ \:\__\/:/__/ \:|__/:/\:\ \:\__\/:/__/:/__/                    /:/__/ \:\__\/\ \:\ \ \__\
-//  \:\  \  \/__/\:\  \ /:/  /\/_|::\/:/  /\:\  \ /:/  |:\~\:\ \/__/\:\  \:\  \                    \:\  \ /:/  /\:\ \:\ \/__/
-//   \:\  \       \:\  /:/  /    |:|::/  /  \:\  /:/  / \:\ \:\__\   \:\  \:\  \                    \:\  /:/  /  \:\ \:\__\  
-//    \:\  \       \:\/:/  /     |:|\/__/    \:\/:/  /   \:\ \/__/    \:\  \:\  \                    \:\/:/  /    \:\/:/  /  
-//     \:\__\       \::/  /      |:|  |       \::/__/     \:\__\       \:\__\:\__\                    \::/  /      \::/  /   
-//      \/__/        \/__/        \|__|        ~~          \/__/        \/__/\/__/                     \/__/        \/__/    
-
-
-
 void shell_start_screen() {
-    cprintf(FOREGROUND_LIGHT_GREEN, "       ___          ___          ___          ___         ___          ___  ___                       ___          ___     \r\n");
-    cprintf(FOREGROUND_LIGHT_GREEN, "      /\  \        /\  \        /\  \        /\  \       /\  \        /\__\/\__\                     /\  \        /\  \    \r\n");
-    cprintf(FOREGROUND_LIGHT_GREEN, "     /::\  \      /::\  \      /::\  \      /::\  \     /::\  \      /:/  /:/  /                    /::\  \      /::\  \   \r\n");
-    cprintf(FOREGROUND_LIGHT_GREEN, "    /:/\:\  \    /:/\:\  \    /:/\:\  \    /:/\:\  \   /:/\:\  \    /:/  /:/  /                    /:/\:\  \    /:/\ \  \  \r\n");
-    cprintf(FOREGROUND_LIGHT_GREEN, "   /:/  \:\  \  /:/  \:\  \  /::\~\:\  \  /:/  \:\__\ /::\~\:\  \  /:/  /:/  /                    /:/  \:\  \  _\:\~\ \  \ \r\n");
-    cprintf(FOREGROUND_LIGHT_GREEN, "  /:/__/ \:\__\/:/__/ \:\__\/:/\:\ \:\__\/:/__/ \:|__/:/\:\ \:\__\/:/__/:/__/                    /:/__/ \:\__\/\ \:\ \ \__\\r\n");
-    cprintf(FOREGROUND_LIGHT_GREEN, "  \:\  \  \/__/\:\  \ /:/  /\/_|::\/:/  /\:\  \ /:/  |:\~\:\ \/__/\:\  \:\  \                    \:\  \ /:/  /\:\ \:\ \/__/\r\n");
-    cprintf(FOREGROUND_LIGHT_GREEN, "   \:\  \       \:\  /:/  /    |:|::/  /  \:\  /:/  / \:\ \:\__\   \:\  \:\  \                    \:\  /:/  /  \:\ \:\__\  \r\n");
-    cprintf(FOREGROUND_LIGHT_GREEN, "    \:\  \       \:\/:/  /     |:|\/__/    \:\/:/  /   \:\ \/__/    \:\  \:\  \                    \:\/:/  /    \:\/:/  /  \r\n");
-    cprintf(FOREGROUND_LIGHT_GREEN, "     \:\__\       \::/  /      |:|  |       \::/__/     \:\__\       \:\__\:\__\                    \::/  /      \::/  /   \r\n");
-    cprintf(FOREGROUND_LIGHT_GREEN, "      \/__/        \/__/        \|__|        ~~          \/__/        \/__/\/__/                     \/__/        \/__/    \r\n");
+    printf("\n");
+
+    cprintf(FOREGROUND_LIGHT_GREEN, "  .o88b.  .d88b.  d8888b. d8888b. d88888b db      db         .d88b.  .d8888. \r\n");
+    cprintf(FOREGROUND_LIGHT_GREEN, " d8P  Y8 .8P  Y8. 88  `8D 88  `8D 88'     88      88        .8P  Y8. 88'  YP \r\n");
+    cprintf(FOREGROUND_LIGHT_GREEN, " 8P      88    88 88oobY' 88   88 88ooooo 88      88        88    88 `8bo.   \r\n");
+    cprintf(FOREGROUND_LIGHT_GREEN, " 8b      88    88 88`8b   88   88 88~~~~~ 88      88        88    88   `Y8b. \r\n");
+    cprintf(FOREGROUND_LIGHT_GREEN, " Y8b  d8 `8b  d8' 88 `88. 88  .8D 88.     88booo. 88booo.   `8b  d8' db   8D \r\n");
+    cprintf(FOREGROUND_LIGHT_GREEN, "  `Y88P'  `Y88P'  88   YD Y8888D' Y88888P Y88888P Y88888P    `Y88P'  `8888Y' \r\n");
 
     cprintf(FOREGROUND_AQUA, "\r\n Questo sistema operativo 'e in costruzione. [ver. 0.5 | 05.11.2023] \r\n");
 }
@@ -172,7 +154,7 @@ void shell_start_screen() {
                 printf("\r\n> Usa [%s] <nome> per cretore dir",                         COMMAND_CREATE_DIR);
                 printf("\r\n> Usa [%s] <accesso> <nome> per cretore file",              COMMAND_CREATE_FILE);
                 printf("\r\n> Usa [%s] <nome> per elimita dir",                         COMMAND_DELETE_FILE);
-                printf("\r\n> Usa [%s] in dir per ottenere tutte le informazioni",      COMMAND_GET_DIRECTORY_DATA)
+                printf("\r\n> Usa [%s] in dir per ottenere tutte le informazioni",      COMMAND_GO_TO_MANAGER);
                 printf("\r\n> Usa [%s] <nome> per entranto dir",                        COMMAND_IN_DIR);
                 printf("\r\n> Usa [%s] per uscire di dir",                              COMMAND_OUT_DIR);
                 printf("\r\n> Usa [%s] per guardare tutto cosa in dir",                 COMMAND_LIST_DIR);
@@ -297,8 +279,8 @@ void shell_start_screen() {
             else if (strstr(command_line[0], COMMAND_CREATE_DIR) == 0)                              // Create new dir
                 create_directory(command_line[1]);                                                  // Name placed as second arg
             
-            else if (strstr(command_line[0], COMMAND_GET_DIRECTORY_DATA) == 0)                      
-                print_directory_data();                                             
+            else if (strstr(command_line[0], COMMAND_GO_TO_MANAGER) == 0)                      
+                open_file_manager();                                             
 
             else if (strstr(command_line[0], COMMAND_IN_DIR) == 0)                                  // Move to dir           
                 move_to_directory(command_line[1]);                                                 //
@@ -321,7 +303,7 @@ void shell_start_screen() {
             }
             
             else if (strstr(command_line[0], COMMAND_CREATE_FILE) == 0)                
-                create_file(command_line[1], command_line[2], ATA_find_empty_sector());              // Name placed as third arg
+                create_file(atoi(command_line[1]), command_line[2], ATA_find_empty_sector());              // Name placed as third arg
                              
             else if (strstr(command_line[0], COMMAND_DELETE_FILE) == 0)  {                       // Delete file by name
                 if (access_level == GUEST_ACCESS) {
@@ -431,7 +413,7 @@ void shell_start_screen() {
                 if (execute == NULL)
                     return;
                 
-                if (file->fileType == 0 && access_level == DEFAULT_ACCESS) {
+                if (execute->fileType == 0 && access_level == DEFAULT_ACCESS) {
                     printf("\r\n%s\r\n", Ady_ATTENTION);
                     return;
                 }
@@ -461,7 +443,7 @@ void shell_start_screen() {
                 if (execute == NULL)
                     return;
 
-                if (file->fileType == 0 && access_level == DEFAULT_ACCESS) {
+                if (execute->fileType == 0 && access_level == DEFAULT_ACCESS) {
                     printf("\r\n%s\r\n", Ady_ATTENTION);
                     return;
                 }

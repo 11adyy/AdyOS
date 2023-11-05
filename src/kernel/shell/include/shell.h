@@ -8,6 +8,7 @@
 
 #include "Keyboard.h"
 #include "user.h"
+#include "file_manager.h"
 
 #include "../libs/core/shared/include/x86.h"
 
@@ -20,7 +21,7 @@
 //  CONSTANTS
 
     #define Ady_ATTENTION   "Non hai i permessi. Usa Ady."
-    #define GUEST_ATTENTION     "Tu in modalità ospite. Azione respinta."
+    #define GUEST_ATTENTION     "Tu in modalita' ospite. Azione respinta."
     #define MAX_ATTEMPT_COUNT   4
 
     /////////////////
@@ -43,19 +44,19 @@
         #define COMMAND_OUT_DIR                         ".."
         #define COMMAND_LIST_DIR                        "dir"
 
-        #define COMMAND_FILE_VIEW                       "view"
-        #define COMMAND_FILE_EDIT                       "edit"
-        #define COMMAND_FILE_RUN                        "run"
+        #define COMMAND_FILE_VIEW                       "vista"
+        #define COMMAND_FILE_EDIT                       "modif"
+        #define COMMAND_FILE_RUN                        "fuga"
         #define COMMAND_FILE_ASM_RUN                    "asm"
 
-        #define COMMAND_GET_DIRECTORY_DATA              "dirinfo"
+        #define COMMAND_GO_TO_MANAGER                   "mng"
 
         #define COMMAND_CREATE_FILE                     "mkfile"
         #define COMMAND_DELETE_FILE                     "rmfile"
 
         #define COMMAND_CALCULATOR                      "calc"
         
-        #define COMMAND_SPLIT_LINE                      "split"
+        #define COMMAND_SPLIT_LINE                      "diviso"
 
     //  COMMANDS
     /////////////////

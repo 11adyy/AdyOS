@@ -28,61 +28,6 @@ void init_directory() {
 
 ////////////////////////////////////////////////
 //
-//  COMMANDS
-//
-
-    void print_directory_data() {
-        printf("\n");
-        printf("+-----------------+-------+-----------+---------------------+\n");
-        printf("| Name            | Type  | Access    | Sectors (File Only) |\n");
-        printf("+-----------------+-------+-----------+---------------------+\n");
-
-        struct Directory* currentDir = get_current_directory();
-        while (currentDir != NULL) {
-            char* name = (char*)malloc(25);
-            if (strlen(currentDir->name) > 25) 
-                strncpy(name, currentDir->name, 25);
-            else {
-                strcat(name, currentDir->name);
-                for (int i = 0; i < 25 - strlen(name); i++)
-                    strcat(name, " ");
-            }
-
-            printf("| %s | Dir   | N/A       | N/A                 |\n", name);
-
-            struct File* currentFile = currentDir->files;
-            while (currentFile != NULL) {
-
-                char* file_name = (char*)malloc(25);
-                if (strlen(currentFile->name) > 25) 
-                    strncpy(file_name, currentFile->name, 25);
-                else {
-                    strcat(file_name, currentFile->name);
-                    for (int i = 0; i < 25 - strlen(file_name); i++)
-                        strcat(file_name, " ");
-                }
-
-                printf("| %s | File  | %i         | %d                  |\n",
-                    file_name,
-                    currentFile->fileType,
-                    currentFile->sectors[0]);
-
-                free(file_name);
-                currentFile = currentFile->next;
-            }
-        
-            free(name);
-            currentDir = currentDir->next;
-        }
-
-        printf("+-----------------+-------+-----------+---------------------+\n");
-    }
-
-//
-//  COMMANDS
-//
-////////////////////////////////////////////////
-//
 //  CREATES TEMP DIRECTORY <NAME> IN CURRENT DIRECTORY
 //
 
@@ -130,7 +75,7 @@ void init_directory() {
 //  CREATES TEMP FILE WITH NAME <NAME> IN CURRENT DIRECTORY
 //
 
-    void create_file(char* type, char* name, uint8_t* head_sector) {
+    void create_file(int type, char* name, uint8_t* head_sector) {
         if (find_file(name) != NULL) {
             printf("Il file esiste gia'.");
             return;
@@ -142,8 +87,7 @@ void init_directory() {
         newFile->name = malloc(strlen(name));
         memcpy(newFile->name, name, strlen(name));
 
-        newFile->fileType = malloc(strlen(type));
-        memcpy(newFile->fileType, type, strlen(type));
+        newFile->fileType = type;
 
         newFile->sectors = (uint32_t*)malloc(sizeof(uint32_t));
         newFile->sector_count++;
@@ -423,11 +367,14 @@ void init_directory() {
         }
 
         struct File* file = directory->files;
+        if (file != NULL)
+            strcat(result, "N");
+
         while (file != NULL) {
-            strcat(result, "NF");
+            strcat(result, "F");
             strcat(result, file->name);
             strcat(result, "T");
-            strcat(result, file->fileType);
+            strcat(result, fprintf_unsigned(-1, file->fileType, 10));
             strcat(result, "S");
 
             int sector_count = file->sector_count;
@@ -474,12 +421,8 @@ void init_directory() {
             
             if (input[*index] == 'T') {
                 (*index)++; // Move past 'T'
-                
-                start = *index;
-                while (input[*index] != '\0' && input[*index] != 'S') 
-                    (*index)++;
 
-                file->fileType = atoi(strncpy((input + start)[0]));
+                file->fileType = input[(*index)++] - '0';
                 
                 while (input[*index] == 'S') {
                     (*index)++; // Move past 'S'
@@ -503,7 +446,7 @@ void init_directory() {
                 }
             }
         }
-        
+
         return file;
     }
 
@@ -548,49 +491,11 @@ void init_directory() {
                 directory->next = load_directory(input, index);
 
             if (input[*index] == 'F') {
-                (*index)++;
-                struct File* file = (struct File*)malloc(sizeof(struct File));
-                file->fileType  = NULL;
-                file->name      = NULL;
-
-                int start = *index;
-                while (input[*index] != '\0' && input[*index] != '#' && input[*index] != '@') 
-                    (*index)++;
-
-                if (input[start] == 'T') {
-                    start++;
-                    file->fileType = atoi((input + start)[0]);
-                }
-
-                start = *index;
-                while (input[*index] != '\0' && input[*index] != '#' && input[*index] != '@') 
-                    (*index)++;
-
-                if (input[start] == 'T') {
-                    start++;
-                    file->name = (char*)malloc(2);
-                    strncpy(file->name, input + start, 1);
-                    file->name[1] = '\0';
-                }
-
-                start = *index;
-                while (input[*index] != '\0' && input[*index] != '#' && input[*index] != '@') 
-                    (*index)++;
-
-                while (input[start] == 'S') {
-                    start++;
-                    int sector = atoi(input + start);
-
-                    size_t sector_count = file->sector_count;
-                    file->sectors = realloc(file->sectors, sector_count * sizeof(uint32_t));
-                    file->sectors[sector_count - 1] = (uint32_t)sector;
-                }
-
                 struct File* end_file = directory->files;
                 while (end_file->next != NULL)
                     end_file = end_file->next;
 
-                end_file->next = file;
+                end_file->next = load_temp_file(input, index);
             }
         }
 
