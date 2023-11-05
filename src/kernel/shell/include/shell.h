@@ -20,7 +20,7 @@
 //  CONSTANTS
 
     #define Ady_ATTENTION   "Non hai i permessi. Usa Ady."
-    #define GUEST_ATTENTION     "Modalita` ospite. Accesso rifiutato."
+    #define GUEST_ATTENTION     "Tu in modalità ospite. Azione respinta."
     #define MAX_ATTEMPT_COUNT   4
 
     /////////////////
@@ -36,9 +36,6 @@
         #define COMMAND_SET_HDD_SECTOR                  "wsector"
         #define COMMAND_CLEAR_SECTOR                    "clsector"
 
-        #define COMMAND_LOAD_FILES                      "loadfs"
-        #define COMMAND_SAVE_FILES                      "savefs"
-
         #define COMMAND_CREATE_DIR                      "mkdir"
         #define COMMAND_DELETE_DIR                      "rmdir"
 
@@ -46,9 +43,9 @@
         #define COMMAND_OUT_DIR                         ".."
         #define COMMAND_LIST_DIR                        "dir"
 
-        #define COMMAND_FILE_VIEW                       "vista"
-        #define COMMAND_FILE_EDIT                       "modif"
-        #define COMMAND_FILE_RUN                        "fuga"
+        #define COMMAND_FILE_VIEW                       "view"
+        #define COMMAND_FILE_EDIT                       "edit"
+        #define COMMAND_FILE_RUN                        "run"
         #define COMMAND_FILE_ASM_RUN                    "asm"
 
         #define COMMAND_GET_DIRECTORY_DATA              "dirinfo"
@@ -58,7 +55,7 @@
 
         #define COMMAND_CALCULATOR                      "calc"
         
-        #define COMMAND_SPLIT_LINE                      "diviso"
+        #define COMMAND_SPLIT_LINE                      "split"
 
     //  COMMANDS
     /////////////////
