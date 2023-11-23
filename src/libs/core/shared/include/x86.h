@@ -4,16 +4,26 @@
 #include <stdbool.h>
 
 #define ASMCALL __attribute__((cdecl))
-#define asm __asm__ volatile
 
+//
+//  Output data to address
+//
+void ASMCALL x86_outb(uint16_t port, uint8_t data);
 
-uint16_t x86_inw(uint16_t port);
+//
+//  Output data to address
+//
+void ASMCALL x86_outw(uint16_t port, short* data);
 
-void x86_outw(uint16_t port, uint16_t data);
+//
+//  Input data from address
+//
+uint8_t ASMCALL x86_inb(uint16_t port);
 
-uint8_t x86_inb(uint16_t port);
-
-void x86_outb(uint16_t port, uint8_t data);
+//
+//  Input data from address
+//
+uint8_t ASMCALL x86_inw(uint16_t port);
 
 //
 //  Get parameters of disk

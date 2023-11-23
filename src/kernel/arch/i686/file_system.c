@@ -40,7 +40,7 @@ void init_directory() {
             return;
         }
 
-    create_directory("home");
+    create_directory("root");
     mainDirectory = currentDirectory;
 }
 

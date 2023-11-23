@@ -10,9 +10,14 @@ void open_file_manager(struct User* user) {
 
     while(1) {
         char user_action = keyboard_navigation();
-        if (user_action == UP_ARROW_BUTTON && row_position > 0) row_position--;
-        else if (user_action == DOWN_ARROW_BUTTON) row_position++;
-        else if (user_action == ENTER_BUTTON || user_action == BACKSPACE_BUTTON) execute_item(user, user_action);
+        if (user_action == UP_ARROW_BUTTON && row_position > 0) 
+            row_position--;
+
+        else if (user_action == DOWN_ARROW_BUTTON)
+            row_position++;
+
+        else if (user_action == ENTER_BUTTON || user_action == BACKSPACE_BUTTON) 
+            execute_item(user, user_action);
 
         else if (user_action == F3_BUTTON) {
             VGA_clrscr();
@@ -43,7 +48,8 @@ void open_file_manager(struct User* user) {
             free(file_extension);
         }
 
-        else if (user_action == F4_BUTTON) execute_item(user, user_action);
+        else if (user_action == F4_BUTTON) 
+            execute_item(user, user_action);
         
         VGA_text_clrscr();
         print_directory_data();
@@ -226,7 +232,9 @@ void execute_item(struct User* user, char action_type) {
                             printf("%sFile: [%s]   [F3 - EXIT]\n%s\n\n\n%s\n\n%s", LINE, currentFile->name, LINE, read_file(currentFile), LINE);
                             set_color(BACKGROUND_BLUE + FOREGROUND_BRIGHT_WHITE);
 
-                            keyboard_wait(F3_BUTTON);
+                            char user_action = keyboard_navigation();
+                            if (user_action == F3_BUTTON)
+                                break;
                         }
 
                         break;
@@ -238,7 +246,11 @@ void execute_item(struct User* user, char action_type) {
                         set_color(BACKGROUND_BLUE + FOREGROUND_BRIGHT_WHITE);
 
                         printf("\n\nPress [F3] to exit");
-                        keyboard_wait(F3_BUTTON);
+                        while (1) {
+                            char user_action = keyboard_navigation();
+                            if (user_action == F3_BUTTON)
+                                break;
+                        }
 
                         break;
                     }
@@ -269,7 +281,11 @@ void execute_item(struct User* user, char action_type) {
                         free(sector_data);
                         
                         printf("\n\nPress [F3] to exit");
-                        keyboard_wait(F3_BUTTON);
+                        while (1) {
+                            char user_action = keyboard_navigation();
+                            if (user_action == F3_BUTTON)
+                                break;
+                        }
 
                         break;
                     }
@@ -292,7 +308,6 @@ void execute_item(struct User* user, char action_type) {
 
 void print_directory_data() {
     set_color(BACKGROUND_BLUE + FOREGROUND_BRIGHT_WHITE);
-
     char* directory_name = get_full_temp_name();  // Mem leak?
     printf("Directory: [%s]\n%s%s%s", directory_name, LINE, HEADER, LINE);
     free(directory_name);  // Mem leak?
@@ -370,17 +385,9 @@ void print_directory_data() {
         //  FILE SIZE PREPARATIONS
         ////////////////
 
-        uint8_t foreground_color = FOREGROUND_BRIGHT_WHITE;
-        if (strstr(file_extension, "txt") == 0)
-            foreground_color = FOREGROUND_YELLOW;
-        else if (strstr(file_extension, "asm") == 0)
-            foreground_color = FOREGROUND_GREY;
-        else if (strstr(file_extension, "shl") == 0)
-            foreground_color = FOREGROUND_GREEN;
-
-        if (rows++ == row_position) cprintf(BACKGROUND_RED + foreground_color, "| %s | File              | %d %d %d     | %s | %s |\n",
+        if (rows++ == row_position) cprintf(BACKGROUND_RED + FOREGROUND_BRIGHT_WHITE, "| %s | File              | %d %d %d     | %s | %s |\n",
                 file_name, currentFile->read_level, currentFile->write_level, currentFile->edit_level, file_extension, file_size);
-        else cprintf(BACKGROUND_BLUE + foreground_color, "| %s | File              | %d %d %d     | %s | %s |\n",
+        else printf("| %s | File              | %d %d %d     | %s | %s |\n",
                 file_name, currentFile->read_level, currentFile->write_level, currentFile->edit_level, file_extension, file_size);
 
         currentFile = currentFile->next;
