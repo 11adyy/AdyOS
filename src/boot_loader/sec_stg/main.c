@@ -68,7 +68,6 @@ void __attribute__((cdecl)) start(uint16_t bootDrive, void* partition) {
         }
 
         // execute kernel
-        printf("Starting kernel\n\r");
         kernelEntry(&_bootParams);
 
     // KERNEL LOADING
