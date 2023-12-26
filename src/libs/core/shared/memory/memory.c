@@ -20,12 +20,12 @@ void* memset(void* pointer, int value, uint16_t num) {
 }
 
 int memcmp(const void* firstPointer, const void* secondPointer, uint16_t num) {
-    register const unsigned char *s1 = (const unsigned char*)firstPointer;
-    register const unsigned char *s2 = (const unsigned char*)secondPointer;
+    const uint8_t* u8Ptr1 = (const uint8_t *)firstPointer;
+    const uint8_t* u8Ptr2 = (const uint8_t *)secondPointer;
 
-    while (num-- > 0) 
-        if (*s1++ != *s2++)
-            return s1[-1] < s2[-1] ? -1 : 1;
+    for (uint16_t i = 0; i < num; i++)
+        if (u8Ptr1[i] != u8Ptr2[i])
+            return 1;
 
     return 0;
 }
