@@ -2,8 +2,7 @@ ENTRY(entry)
 OUTPUT_FORMAT("elf32-i386")
 phys = 0x00001000;
 
-SECTIONS
-{
+SECTIONS {
     . = phys;
 
     .entry              : { __entry_start = .;      *(.entry)   }
