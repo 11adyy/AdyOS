@@ -8,7 +8,7 @@ bits 16
 
 section .entry
 
-extern Start        ; c start
+extern start        ; c start
 extern _init        ; cpp init
 
 extern __bss_start  ; sections
@@ -26,8 +26,8 @@ entry:
 
     mov [boot_drive], dl            ; save boot drive
 
-    mov [boot_partition_off], si
-    mov [boot_partition_seg], di
+    mov [boot_partition_off], di
+    mov [boot_partition_seg], es
 
     ; setup stack
     mov ax, ds
@@ -99,7 +99,7 @@ entry:
     
 
         ; call C        
-        call Start
+        call start
 
         cli                             ; Clear interrupt flags
         hlt                             ; halt the CPU until the next external interrupt is fired
