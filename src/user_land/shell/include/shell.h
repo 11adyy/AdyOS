@@ -10,7 +10,6 @@
 #include "file_manager.h"
 #include "text_editor.h"
 
-// #include "../libs/include/x86.h"
 
 #define SUPER_DERICTIVE        0
 #define Ady_DERICTIVE      1
