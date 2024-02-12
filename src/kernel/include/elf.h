@@ -5,8 +5,7 @@
 #include "elf.h"
 #include "fat.h"
 #include "stdio.h"
-#include "virt_manager.h"
-#include "phys_manager.h"
+#include "allocator.h"
 
 #include "../../libs/include/memory.h"
 #include "../../libs/include/math.h"
@@ -24,7 +23,6 @@ typedef uint32_t Elf32_Off;
 typedef uint16_t Elf32_Section;
 
 #define EI_NIDENT (16)
-#define ELF_VIRT_LOCATION   0x500000
 
 typedef struct {
     unsigned char e_ident[EI_NIDENT];

@@ -5,11 +5,7 @@
 TaskManager* taskManager;
 
 void TASK_task_init() {
-	taskManager = malloc(sizeof(TaskManager));
-	if (taskManager == NULL) {
-		kprintf("Unnable to allocate memory!\n");
-		kernel_panic("\nTASKING ERROR!");
-	}
+	taskManager = (TaskManager*)malloc(sizeof(TaskManager));
 
     taskManager->tasksCount  = 0;
     taskManager->currentTask = -1;

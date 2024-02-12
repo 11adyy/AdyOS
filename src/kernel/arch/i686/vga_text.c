@@ -1,12 +1,12 @@
-#include "../include/vga_text.h"
+#include "../../include/vga_text.h"
 
-const unsigned int SCREEN_WIDTH  = 80;
-const unsigned int SCREEN_HEIGHT = 25;
-const uint8_t DEFAULT_COLOR      = 0x7;
+const unsigned int SCREEN_WIDTH  = 80;      //  Default widgth of screens
+const unsigned int SCREEN_HEIGHT = 25;      //  Default height of screens
+const uint8_t DEFAULT_COLOR      = 0x7;     //  Default color
 
-uint8_t* _screenBuffer = (uint8_t*)0xB8000;
+uint8_t* _screenBuffer = (uint8_t*)0xB8000; // Position of screen buffer in memory
 
-int _screenX = 0;
+int _screenX = 0;                           //  Cursor position
 int _screenY = 0;
 
 

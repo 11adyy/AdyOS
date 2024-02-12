@@ -47,14 +47,13 @@ struct UFATDate* FATLIB_get_date(short data, int type) {
 }
 
 // TODO: Page fault
-// Return NULL if can`t make updir command
 char* FATLIB_change_path(const char* currentPath, const char* content) {
     if (content == NULL || content[0] == '\0') {
         const char* lastSeparator = strrchr(currentPath, '\\');
-        if (lastSeparator == NULL) return NULL;
+        if (lastSeparator == NULL) currentPath = "";
         else {
             size_t parentPathLen = lastSeparator - currentPath;
-            char* parentPath = malloc(parentPathLen + 1);
+            char* parentPath = (char*)malloc(parentPathLen + 1);
             if (parentPath == NULL) {
                 printf("Memory allocation failed\n");
                 return NULL;
@@ -63,23 +62,20 @@ char* FATLIB_change_path(const char* currentPath, const char* content) {
             strncpy(parentPath, currentPath, parentPathLen);
             parentPath[parentPathLen] = '\0';
 
-            return parentPath;
+            return strdup(parentPath);
         }
-    }
-    
-    else {
+    } else {
         int newPathLen = strlen(currentPath) + strlen(content) + 2;
-        char* newPath  = malloc(newPathLen);
+        char* newPath = (char*)malloc(newPathLen);
         if (newPath == NULL) return NULL;
 
         strcpy(newPath, currentPath);
         if (newPath[strlen(newPath) - 1] != '\\') 
             strcat(newPath, "\\");
-
+        
         strcat(newPath, content);
-        newPath[newPathLen - 1] = '\0';
 
-        return newPath;
+        return strdup(newPath);
     }
 }
 
