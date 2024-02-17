@@ -1,7 +1,4 @@
-#ifndef ELF_H_
-#define ELF_H_
-
-
+#pragma once
 #include <stdint.h>
 #include <stdbool.h>
 
@@ -17,6 +14,7 @@
 
 
 #define EI_NIDENT (16)
+#define ELF_VIRT_LOCATION   0x500000
 
 
 typedef struct {
@@ -109,8 +107,4 @@ enum ShT_Attributes {
 
 };
 
-
 struct ELF32_program* ELF_read(const char* path);
-
-
-#endif

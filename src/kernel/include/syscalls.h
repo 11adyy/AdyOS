@@ -36,10 +36,8 @@
 
 // FS managment (FAT32)
 #define SYS_READ_FILE        9
-#define SYS_READ_FILE_OFF    33 //
 #define SYS_WRITE_FILE       10
 #define SYS_OPENDIR          11
-#define SYS_GET_CONTENT      30
 #define SYS_EXECUTE_FILE     12
 #define SYS_CEXISTS          15
 #define SYS_FCREATE          16
@@ -53,9 +51,7 @@
 
 // Graphics
 #define SYS_PUT_PIXEL        28
-#define SYS_GET_PIXEL        29
-#define SYS_GET_RESOLUTION_X 31
-#define SYS_GET_RESOLUTION_Y 32
+#define SYS_GET_PIXEL        29 //
 
 
 void i386_syscalls_init();

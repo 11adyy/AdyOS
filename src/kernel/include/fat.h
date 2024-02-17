@@ -76,7 +76,6 @@
 
 //FAT directory and bootsector structures
 typedef struct fat_extBS_32 {
-
 	unsigned int		table_size_32;
 	unsigned short		extended_flags;
 	unsigned short		fat_version;
@@ -94,7 +93,6 @@ typedef struct fat_extBS_32 {
 } __attribute__((packed)) fat_extBS_32_t;
 
 typedef struct fat_extBS_16 {
-
 	unsigned char		bios_drive_num;
 	unsigned char		reserved1;
 	unsigned char		boot_signature;
@@ -105,7 +103,6 @@ typedef struct fat_extBS_16 {
 } __attribute__((packed)) fat_extBS_16_t;
 
 typedef struct fat_BS {
-
 	unsigned char 		bootjmp[3];
 	unsigned char 		oem_name[8];
 	unsigned short 	    bytes_per_sector;
@@ -128,7 +125,6 @@ typedef struct fat_BS {
 /* from http://wiki.osdev.org/FAT */
 
 typedef struct directory_entry {
-
 	unsigned char file_name[11];
 	unsigned char attributes;
 	unsigned char reserved0;
@@ -147,7 +143,6 @@ typedef struct directory_entry {
 } __attribute__((packed)) directory_entry_t;
 
 typedef struct fsInfo {
-
 	unsigned int  lead_signature;      //should contain 0x41615252
 	unsigned char reserved1[480];
 	
@@ -161,7 +156,6 @@ typedef struct fsInfo {
 } __attribute__((packed)) FSInfo_t;
 
 typedef struct long_entry {
-	
 	unsigned char order;
 	unsigned char first_five[10];      //first 5, 2-byte characters
 	unsigned char attributes;          //MUST BE FILE_LONG_NAME
