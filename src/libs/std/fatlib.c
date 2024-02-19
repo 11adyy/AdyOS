@@ -1,6 +1,5 @@
 #include "../include/fatlib.h"
 
-
 void FATLIB_unload_directories_system(struct UFATDirectory* directory) {
     if (directory == NULL) return;
     if (directory->files != NULL) FATLIB_unload_files_system(directory->files);
