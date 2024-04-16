@@ -15,12 +15,8 @@
 #include "phys_manager.h"
 #include "allocator.h"
 
-#include "../multiboot/multiboot.h"
 
-
-#define NULL_ADDRESS        -1
-#define ELF32_ST_TYPE(i)    ((i)&0xf)
-#define EI_NIDENT           (16)
+#define EI_NIDENT (16)
 
 
 typedef struct {
@@ -38,6 +34,7 @@ typedef struct {
     uint16_t	  e_shentsize;
     uint16_t	  e_shnum;
     uint16_t	  e_shstrndx;
+
 } Elf32_Ehdr;
 
 // e_type values
@@ -58,6 +55,7 @@ typedef struct {
     uint32_t	p_memsz;
     uint32_t	p_flags;
     uint32_t	p_align;
+
 } Elf32_Phdr;
 
 // p_type values
@@ -78,6 +76,7 @@ typedef struct Elf32_sectionHeader {
 	uint32_t	sh_info;
 	uint32_t	sh_addralign;
 	uint32_t	sh_entsize;
+
 } Elf32_Shdr;
 
 typedef struct {
@@ -103,28 +102,14 @@ enum ShT_Types {
 	SHT_RELA	 = 4,   // Relocation (w/ addend)
 	SHT_NOBITS	 = 8,   // Not present in file
 	SHT_REL		 = 9,   // Relocation (no addend)
+
 };
  
 enum ShT_Attributes {
 	SHF_WRITE	= 0x01, // Writable section
 	SHF_ALLOC	= 0x02  // Exists in memory
+
 };
-
-typedef struct {
-  uint32_t name_offset_in_strtab;
-  uint32_t value;
-  uint32_t size;
-  uint8_t  info;
-  uint8_t  other;
-  uint16_t shndx;
-} __attribute__((packed)) elf_symbol_t;
-
-typedef struct {
-  elf_symbol_t *symtab;
-  uint32_t      symtab_size;
-  const char   *strtab;
-  uint32_t      strtab_size;
-} elf_symbols_t;
 
 typedef struct ELF32_symbols_desctiptor {
     bool present;
@@ -137,10 +122,8 @@ typedef struct ELF32_symbols_desctiptor {
 ELF32_program* ELF_read(const char* path, int type);
 void ELF_free_program(ELF32_program* program);
 
-void ELF_kernel_trace();
-void ELF_build_symbols_from_multiboot(multiboot_elf_section_header_table_t mb);
-const char* ELF_lookup_symbol_function(uint32_t addr, elf_symbols_t* elf);
-const char* ELF_lookup_function(uint32_t addr);
+ELF32_SymDescriptor* ELF_load_symbol_table(Elf32_Shdr* symbol_table_section, Elf32_Shdr* string_table_section);
+char* ELF_address2symname(uint32_t address, ELF32_SymDescriptor* descriptor);
 
 
 #endif
