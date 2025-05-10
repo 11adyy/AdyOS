@@ -21,8 +21,8 @@ sudo mkdosfs -F32 -f 2 "$LOOP_DEVICE"
 # Step 5: Mount the newly formatted partition
 echo "Mounting and copy files"
 sudo mount "$LOOP_DEVICE" /mnt
-sudo cp -r ../AdyOS/boot /mnt
-sudo cp -r ../AdyOS/home /mnt
+sudo cp -r build/AdyOS/boot /mnt
+sudo cp -r build/AdyOS/home /mnt
 
 # Step 6: Install GRUB using grub-install
 sudo grub2-install --boot-directory=/mnt/boot --root-directory=/mnt --no-floppy --target=i386-pc --modules="normal part_msdos multiboot" "$LOOP_DEVICE" --force
