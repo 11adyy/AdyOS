@@ -155,8 +155,9 @@ ls_end:
         case SYS_FCREATE:
             char* mkfile_path = (char*)regs->ebx;
             char* mkfile_name = (char*)regs->ecx;
-            char* mkfile_ext = (char*)regs->edx;
-            Content* mkfile_content = FAT_create_object(mkfile_name, 0, mkfile_ext);
+            char* fname = strtok(mkfile_name, ".");
+            char* fexec = strtok(NULL, "."); // TODO: add extention variable in syscall instead strtok
+            Content* mkfile_content = FAT_create_object(fname, 0, fexec);
             current_vfs->putobj(mkfile_path, mkfile_content);
             FAT_unload_content_system(mkfile_content);
         break;

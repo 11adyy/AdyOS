@@ -5,7 +5,7 @@
 
 // Change this each year as needed.
 // This is only used if the century register doesn't exist.
-#define CURRENT_YEAR    2025
+#define CURRENT_YEAR    2024
 #define CURRENT_CENTURY 21
 #define TICK_DELAY      1000000
 #define MAX_TICK        0xFFFFFFFF
@@ -25,10 +25,12 @@ enum {
     cmos_data    = 0x71
 };
 
+
 extern datetime_t DTM_datetime;
 
-int _datetime_read_rtc();
-int _tick();
+
+void _datetime_read_rtc();
+void _tick();
 int DTM_get_ticks();
 
 #endif
