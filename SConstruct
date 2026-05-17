@@ -5,6 +5,7 @@ from SCons.Variables import *
 from SCons.Environment import *
 from SCons.Node import *
 
+from build.apl import setup_apl_builders
 from build.utility import remove_suffix
 
 VARS = Variables('build_scripts/config.py', ARGUMENTS)
@@ -24,12 +25,52 @@ VARS.AddVariables(
     EnumVariable("image_file_system",
                  help="Type of image",
                  default="fat32",
-                 allowed_values=("fat12", "fat16", "fat32", "ext2"))    
+                 allowed_values=("fat12", "fat16", "fat32", "ext2")),
+    BoolVariable("enable_apl",
+                 help="Build .apl sources with the APL compiler",
+                 default=False),
+    EnumVariable("apl_object_mode",
+                 help="How APL sources are turned into objects",
+                 default="asm",
+                 allowed_values=("asm", "object")),
     )
 
 VARS.Add("tool_chain", 
          help="Path to tool_chain directory.",
          default="../tool_chain")
+VARS.Add("apl",
+         help="Path to APL compiler binary.",
+         default="apl")
+VARS.Add("apl_flags",
+         help="Extra flags passed to the APL compiler.",
+         default="")
+VARS.Add("apl_emit_asm_flag",
+         help="APL compiler flag for producing assembly.",
+         default="--emit-asm")
+VARS.Add("apl_compile_flag",
+         help="APL compiler flag for producing an object file.",
+         default="--compile")
+VARS.Add("apl_link_flag",
+         help="APL compiler flag for compiling and linking.",
+         default="--link")
+VARS.Add("apl_output_flag",
+         help="APL compiler output flag.",
+         default="-o")
+VARS.Add("apl_include_prefix",
+         help="APL compiler include path prefix.",
+         default="-I")
+VARS.Add("apl_assembler_flag",
+         help="APL compiler flag used to pass assembler executable.",
+         default="--assembler")
+VARS.Add("apl_assembler_flags_flag",
+         help="APL compiler flag used to pass assembler flags.",
+         default="--assembler-flags")
+VARS.Add("apl_linker_flag",
+         help="APL compiler flag used to pass linker executable.",
+         default="--linker")
+VARS.Add("apl_linker_flags_flag",
+         help="APL compiler flag used to pass linker flags.",
+         default="--linker-flags")
 
 DEPS = {
     'binutils': '2.37',
@@ -118,6 +159,23 @@ TARGET_ENVIRONMENT.Append(
     LIBS    = ['gcc'],
     LIBPATH = [ str(tool_chainGccLibs) ],
 )
+
+TARGET_ENVIRONMENT.Replace(
+    APL                 = TARGET_ENVIRONMENT['apl'],
+    APLFLAGS            = TARGET_ENVIRONMENT.Split(TARGET_ENVIRONMENT['apl_flags']),
+    APL_OBJECT_MODE     = TARGET_ENVIRONMENT['apl_object_mode'],
+    APLEMITASMFLAG      = TARGET_ENVIRONMENT['apl_emit_asm_flag'],
+    APLCOMPILEFLAG      = TARGET_ENVIRONMENT['apl_compile_flag'],
+    APLLINKFLAG         = TARGET_ENVIRONMENT['apl_link_flag'],
+    APLOUTPUTFLAG       = TARGET_ENVIRONMENT['apl_output_flag'],
+    APLINCPREFIX        = TARGET_ENVIRONMENT['apl_include_prefix'],
+    APLASOPTION         = TARGET_ENVIRONMENT['apl_assembler_flag'],
+    APLASFLAGSOPTION    = TARGET_ENVIRONMENT['apl_assembler_flags_flag'],
+    APLLDOPTION         = TARGET_ENVIRONMENT['apl_linker_flag'],
+    APLLINKFLAGSOPTION  = TARGET_ENVIRONMENT['apl_linker_flags_flag'],
+)
+
+setup_apl_builders(TARGET_ENVIRONMENT)
 
 TARGET_ENVIRONMENT['ENV']['PATH'] += os.pathsep + str(tool_chainBin)
 

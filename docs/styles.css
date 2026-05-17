@@ -1,0 +1,226 @@
+:root {
+  --Ady-bg: #ffffff;
+  --Ady-paper: #ffffff;
+  --Ady-sidebar: #f7f7f7;
+  --Ady-ink: #111111;
+  --Ady-muted: #5f5f5f;
+  --Ady-line: #d9d9d9;
+  --Ady-soft-line: #eeeeee;
+  --Ady-orange: #a72100;
+  --Ady-orange-strong: #8f1d00;
+  --Ady-code-bg: #f6f6f6;
+  --Ady-code-ink: #222222;
+}
+
+html,
+body {
+  background: var(--Ady-bg);
+  color: var(--Ady-ink);
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-size: 16px;
+}
+
+body {
+  letter-spacing: 0;
+}
+
+.sidebar {
+  background: var(--Ady-sidebar);
+  border-right: 1px solid var(--Ady-line);
+  color: var(--Ady-ink);
+}
+
+.sidebar .app-name {
+  margin: 1.4rem 0 1.2rem;
+  padding: 0 18px;
+  text-align: left;
+}
+
+.sidebar .app-name a {
+  color: var(--Ady-ink);
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 28px;
+  font-weight: 700;
+  letter-spacing: 0;
+}
+
+.sidebar-nav {
+  padding: 0 0 24px;
+}
+
+.sidebar ul li {
+  margin: 0;
+}
+
+.sidebar ul li a {
+  border-right: 3px solid transparent;
+  color: var(--Ady-muted);
+  font-size: 14px;
+  line-height: 1.45;
+  margin: 0;
+  padding: 7px 20px;
+}
+
+.sidebar ul li a:hover {
+  color: var(--Ady-orange);
+  text-decoration: none;
+}
+
+.sidebar ul li.active > a {
+  border-right-color: var(--Ady-orange);
+  color: var(--Ady-ink);
+  font-weight: 700;
+}
+
+.content {
+  background: var(--Ady-paper);
+}
+
+.markdown-section {
+  color: var(--Ady-ink);
+  line-height: 1.65;
+  max-width: 920px;
+  padding: 34px 42px 80px;
+}
+
+.markdown-section h1,
+.markdown-section h2,
+.markdown-section h3,
+.markdown-section h4 {
+  color: var(--Ady-ink);
+  font-weight: 700;
+  letter-spacing: 0;
+}
+
+.markdown-section h1 {
+  border-bottom: 1px solid var(--Ady-line);
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 42px;
+  line-height: 1.15;
+  margin: 0 0 1.2rem;
+  padding-bottom: 0.55rem;
+}
+
+.markdown-section h2 {
+  border-bottom: 1px solid var(--Ady-soft-line);
+  font-size: 26px;
+  margin-top: 2.4rem;
+  padding-bottom: 0.25rem;
+}
+
+.markdown-section h3 {
+  font-size: 20px;
+  margin-top: 1.8rem;
+}
+
+.markdown-section p,
+.markdown-section li {
+  color: #252525;
+}
+
+.markdown-section a {
+  color: var(--Ady-orange);
+  font-weight: 600;
+}
+
+.markdown-section a:hover {
+  color: var(--Ady-orange-strong);
+}
+
+.markdown-section blockquote {
+  background: #faf7f5;
+  border-left: 4px solid var(--Ady-orange);
+  color: var(--Ady-muted);
+  margin: 1.2rem 0;
+  padding: 0.7rem 1rem;
+}
+
+.markdown-section code {
+  background: var(--Ady-code-bg);
+  border: 1px solid #e3e3e3;
+  border-radius: 3px;
+  color: var(--Ady-code-ink);
+  font-family: "Source Code Pro", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+  font-size: 0.9em;
+}
+
+.markdown-section pre {
+  background: var(--Ady-code-bg);
+  border: 1px solid var(--Ady-line);
+  border-radius: 4px;
+  color: var(--Ady-code-ink);
+  margin: 1rem 0 1.4rem;
+}
+
+.markdown-section pre > code {
+  background: transparent;
+  border: 0;
+  color: var(--Ady-code-ink);
+  font-size: 0.92rem;
+}
+
+.markdown-section table {
+  display: table;
+  width: 100%;
+}
+
+.markdown-section tr {
+  border-top: 1px solid var(--Ady-line);
+}
+
+.markdown-section tr:nth-child(2n) {
+  background: #fafafa;
+}
+
+.markdown-section th,
+.markdown-section td {
+  border: 1px solid var(--Ady-line);
+  padding: 8px 12px;
+}
+
+.markdown-section th {
+  background: #f1f1f1;
+  color: var(--Ady-ink);
+  font-weight: 700;
+}
+
+.markdown-section hr {
+  border-bottom: 1px solid var(--Ady-line);
+}
+
+.search {
+  border-bottom: 1px solid var(--Ady-line);
+  margin-bottom: 10px;
+  padding: 6px 12px 12px;
+}
+
+.search input {
+  background: #ffffff;
+  border: 1px solid var(--Ady-line);
+  border-radius: 3px;
+  color: var(--Ady-ink);
+  font-size: 14px;
+  padding: 7px 9px;
+}
+
+.search .matching-post {
+  border-bottom: 1px solid var(--Ady-soft-line);
+}
+
+.search .matching-post a {
+  color: var(--Ady-orange);
+}
+
+.app-sub-sidebar li:before {
+  background: var(--Ady-orange);
+}
+
+@media (max-width: 768px) {
+  .markdown-section {
+    padding: 26px 22px 64px;
+  }
+
+  .markdown-section h1 {
+    font-size: 34px;
+  }
+}
