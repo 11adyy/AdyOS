@@ -49,6 +49,9 @@ def _tool_flags(env: Environment):
     _append_option(args, env.subst('$APLASOPTION'), env.subst('$AS'))
     _append_option(args, env.subst('$APLASMFORMATOPTION'), env.subst('$APLASMFORMAT'))
     _append_option(args, env.subst('$APLLDOPTION'), env.subst('$LD'))
+    _append_option(args, env.subst('$APLCODESECTIONOPTION'), env.subst('$APLCODESECTION'))
+    _append_option(args, env.subst('$APLROSECTIONOPTION'), env.subst('$APLROSECTION'))
+    _append_option(args, env.subst('$APLGLOBSECTIONOPTION'), env.subst('$APLGLOBSECTION'))
     args.extend(_split(env, env.get('APLLINKFLAGS', [])))
 
     return args
@@ -101,7 +104,7 @@ def _apl_emit_asm_action(target, source, env):
         source,
         output_flag='$APLASMOUTPUTFLAG',
         use_include_flags=False,
-        use_tool_flags=False,
+        use_tool_flags=True,
     )
     subprocess.check_call(command)
     if not os.path.exists(target_path):
@@ -163,6 +166,12 @@ def setup_apl_builders(env: Environment):
         APLASMFORMAT='elf32',
         APLASMFORMATOPTION='--asm-format',
         APLLDOPTION='--linker',
+        APLCODESECTION='.text',
+        APLCODESECTIONOPTION='--code-section',
+        APLROSECTION='.rodata',
+        APLROSECTIONOPTION='--ro-section',
+        APLGLOBSECTION='.data',
+        APLGLOBSECTIONOPTION='--glob-section',
         APLASMCOMSTR='APL -> asm [$SOURCE]',
         APLOBJCOMSTR='APL -> obj [$SOURCE]',
         APLLINKCOMSTR='APL linking [$TARGET]',
