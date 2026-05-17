@@ -28,7 +28,7 @@ VARS.AddVariables(
                  allowed_values=("fat12", "fat16", "fat32", "ext2")),
     BoolVariable("enable_apl",
                  help="Build .apl sources with the APL compiler",
-                 default=False),
+                 default=True),
     EnumVariable("apl_object_mode",
                  help="How APL sources are turned into objects",
                  default="asm",
@@ -40,37 +40,46 @@ VARS.Add("tool_chain",
          default="../tool_chain")
 VARS.Add("apl",
          help="Path to APL compiler binary.",
-         default="apl")
+         default="build/ccompiler")
 VARS.Add("apl_flags",
          help="Extra flags passed to the APL compiler.",
-         default="")
+         default="--arch i386 --sys-type i386")
 VARS.Add("apl_emit_asm_flag",
          help="APL compiler flag for producing assembly.",
          default="--emit-asm")
+VARS.Add("apl_no_compile_flag",
+         help="APL compiler flag used to stop after assembly generation.",
+         default="--no-compile")
+VARS.Add("apl_asm_output_flag",
+         help="APL compiler flag used to select assembly output path.",
+         default="--asm-output")
 VARS.Add("apl_compile_flag",
-         help="APL compiler flag for producing an object file.",
-         default="--compile")
+         help="Optional APL compiler flag for producing an object file.",
+         default="")
 VARS.Add("apl_link_flag",
-         help="APL compiler flag for compiling and linking.",
-         default="--link")
+         help="Optional APL compiler flag for compiling and linking.",
+         default="")
 VARS.Add("apl_output_flag",
          help="APL compiler output flag.",
-         default="-o")
+         default="--output")
 VARS.Add("apl_include_prefix",
          help="APL compiler include path prefix.",
          default="-I")
 VARS.Add("apl_assembler_flag",
          help="APL compiler flag used to pass assembler executable.",
-         default="--assembler")
-VARS.Add("apl_assembler_flags_flag",
-         help="APL compiler flag used to pass assembler flags.",
-         default="--assembler-flags")
+         default="--asm-compiler")
+VARS.Add("apl_asm_format",
+         help="Assembler object format requested from APL.",
+         default="elf32")
+VARS.Add("apl_asm_format_flag",
+         help="APL compiler flag used to pass assembler object format.",
+         default="--asm-format")
 VARS.Add("apl_linker_flag",
          help="APL compiler flag used to pass linker executable.",
          default="--linker")
-VARS.Add("apl_linker_flags_flag",
-         help="APL compiler flag used to pass linker flags.",
-         default="--linker-flags")
+VARS.Add("apl_link_flags",
+         help="Extra APL linker flags, for example --linker-mode raw.",
+         default="")
 
 DEPS = {
     'binutils': '2.37',
@@ -164,15 +173,17 @@ TARGET_ENVIRONMENT.Replace(
     APL                 = TARGET_ENVIRONMENT['apl'],
     APLFLAGS            = TARGET_ENVIRONMENT.Split(TARGET_ENVIRONMENT['apl_flags']),
     APL_OBJECT_MODE     = TARGET_ENVIRONMENT['apl_object_mode'],
-    APLEMITASMFLAG      = TARGET_ENVIRONMENT['apl_emit_asm_flag'],
+    APLEMITASMFLAGS     = TARGET_ENVIRONMENT.Split(TARGET_ENVIRONMENT['apl_emit_asm_flag']) + TARGET_ENVIRONMENT.Split(TARGET_ENVIRONMENT['apl_no_compile_flag']),
     APLCOMPILEFLAG      = TARGET_ENVIRONMENT['apl_compile_flag'],
     APLLINKFLAG         = TARGET_ENVIRONMENT['apl_link_flag'],
     APLOUTPUTFLAG       = TARGET_ENVIRONMENT['apl_output_flag'],
+    APLASMOUTPUTFLAG    = TARGET_ENVIRONMENT['apl_asm_output_flag'],
     APLINCPREFIX        = TARGET_ENVIRONMENT['apl_include_prefix'],
     APLASOPTION         = TARGET_ENVIRONMENT['apl_assembler_flag'],
-    APLASFLAGSOPTION    = TARGET_ENVIRONMENT['apl_assembler_flags_flag'],
+    APLASMFORMAT        = TARGET_ENVIRONMENT['apl_asm_format'],
+    APLASMFORMATOPTION  = TARGET_ENVIRONMENT['apl_asm_format_flag'],
     APLLDOPTION         = TARGET_ENVIRONMENT['apl_linker_flag'],
-    APLLINKFLAGSOPTION  = TARGET_ENVIRONMENT['apl_linker_flags_flag'],
+    APLLINKFLAGS        = TARGET_ENVIRONMENT.Split(TARGET_ENVIRONMENT['apl_link_flags']),
 )
 
 setup_apl_builders(TARGET_ENVIRONMENT)
