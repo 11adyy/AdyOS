@@ -65,6 +65,7 @@ def _apl_command(
     output_flag='$APLOUTPUTFLAG',
     use_include_flags=True,
     use_tool_flags=True,
+    extra_mode_flags=None,
 ):
     apl = env.subst('$APL')
     if not os.path.isabs(apl) and os.path.exists(apl):
@@ -80,6 +81,10 @@ def _apl_command(
     mode = env.subst(mode_flag)
     if mode:
         args.extend(_split(env, mode))
+    for extra_mode_flag in _flatten(extra_mode_flags):
+        mode = env.subst(extra_mode_flag)
+        if mode:
+            args.extend(_split(env, mode))
 
     output = env.subst(output_flag)
     if output:
@@ -105,6 +110,7 @@ def _apl_emit_asm_action(target, source, env):
         output_flag='$APLASMOUTPUTFLAG',
         use_include_flags=False,
         use_tool_flags=True,
+        extra_mode_flags='$APLCOMPILEFLAG',
     )
     subprocess.check_call(command)
     if not os.path.exists(target_path):
@@ -156,7 +162,7 @@ def setup_apl_builders(env: Environment):
         APLLINKFLAGS=[],
         APL_OBJECT_MODE='asm',
         APLEMITASMFLAGS=['--emit-asm', '--no-compile'],
-        APLCOMPILEFLAG='',
+        APLCOMPILEFLAG='-O3',
         APLLINKFLAG='',
         APLOUTPUTFLAG='--output',
         APLASMOUTPUTFLAG='--asm-output',
