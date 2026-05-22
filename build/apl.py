@@ -161,7 +161,7 @@ def setup_apl_builders(env: Environment):
         APLPATH=[],
         APLLINKFLAGS=[],
         APL_OBJECT_MODE='asm',
-        APLEMITASMFLAGS=['--emit-asm', '-c'],
+        APLEMITASMFLAGS=['--emit-asm', '--no-compile'],
         APLCOMPILEFLAG='-O3',
         APLLINKFLAG='',
         APLOUTPUTFLAG='--output',

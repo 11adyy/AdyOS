@@ -49,7 +49,7 @@ VARS.Add("apl_emit_asm_flag",
          default="--emit-asm")
 VARS.Add("apl_no_compile_flag",
          help="APL compiler flag used to stop after assembly generation.",
-         default="-c")
+         default="--no-compile")
 VARS.Add("apl_asm_output_flag",
          help="APL compiler flag used to select assembly output path.",
          default="--asm-output")
@@ -205,7 +205,7 @@ SConscript('src/libs/SConscript', variant_dir=bootDir + '/libs', duplicate=0)
 
 # Apps
 SConscript('apps/shell/SConscript', variant_dir=homeDir + '/apps/shell', duplicate=0)
-# SConscript('apps/games/doom/SConscript', variant_dir=homeDir + '/apps/games/doom', duplicate=0)
+SConscript('apps/games/doom/SConscript', variant_dir=homeDir + '/apps/games/doom', duplicate=0)
 SConscript('apps/std/calc/SConscript', variant_dir=homeDir + '/apps/std/calc', duplicate=0)
 # SConscript('apps/std/editor/SConscript', variant_dir=homeDir + '/apps/std/editor', duplicate=0)
 
