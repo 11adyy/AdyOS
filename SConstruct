@@ -40,7 +40,7 @@ VARS.Add("tool_chain",
          default="../tool_chain")
 VARS.Add("apl",
          help="Path to APL compiler binary.",
-         default="build/ccompiler")
+         default="build/aplc")
 VARS.Add("apl_flags",
          help="Extra flags passed to the APL compiler.",
          default="--arch i386 --sys-type i386")

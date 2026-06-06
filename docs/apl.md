@@ -7,7 +7,7 @@ APL is the custom language used by AdyOS experiments. It has an i386 backend and
 The current compiler is available in the development environment as:
 
 ```text
-build/ccompiler
+build/aplc
 ```
 
 It reports itself as `capl 3.5`. The useful options for AdyOS are:
@@ -38,7 +38,7 @@ scons
 Use assembly as the intermediate output:
 
 ```bash
-scons enable_apl=1 apl=build/ccompiler apl_object_mode=asm
+scons enable_apl=1 apl=build/aplc apl_object_mode=asm
 ```
 
 By default, the build asks APL for assembly, then lets the normal NASM path assemble it. This keeps APL integration close to the rest of the kernel build and avoids depending on APL's own assembler/linker stage for kernel objects.
