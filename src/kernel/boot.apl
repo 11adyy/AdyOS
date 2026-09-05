@@ -1,22 +1,22 @@
 @[align(1)]
 container framebuffer {
-    u32 mode; 
-    u32 x;
-    u32 y;
-    u32 bitness;
-
+    usize mode; 
+    usize x;
+    usize y;
+    usize bitness;
 }
 
 @[align(1)]
 container mb_header {
-    u32         magic;
-    u32         flags;
-    u32         check;
-    arr         padding[5, u32];
+    usize       magic;
+    usize       flags;
+    usize       check;
+    arr         padding[5, usize];
     framebuffer fb;
 }
 
 @[section(".multiboot", 4)]
+@[volatile]
 glob mb_header _header = { 
     :/ magic   /: 0x1BADB002, 
     :/ flags   /: 7, 
@@ -35,18 +35,19 @@ container stack {
 @[section(".bss", 16)] 
 glob stack _stack;
 
-@[section(".text")] function kernel_main(u32 mb_info, u32 magic, u32 esp) -> i0;
+@[section(".text")] @[abi] 
+function kernel_main(usize mb_info, usize magic, usize esp) -> i0;
 
 @[section(".text")]
 @[entry("_start")]
 @[naked]
 function main() -> i0 {
-    @[register(4)] u32 magic;
-    @[register(5)] u32 mb_info;
-    asm(magic, mb_info) {
-        "mov %0, eax", :/ save magic /:
-        "mov %1, ebx"  :/ save multiboot info /:
-    }
+#define EAX 16
+#define EBX 17
+#define ESI 20
+#define EDI 21
+    @[popreg(EAX)] @[register(EDI)] usize magic;
+    @[popreg(EBX)] @[register(ESI)] usize mb_info;
 
     asm(ref _stack + sizeof(stack)) {
         "mov esp, %0",
@@ -54,7 +55,7 @@ function main() -> i0 {
         "xor ebp, ebp"
     }
 
-    u32 stack_top = 0;
+    usize stack_top = 0;
     asm(stack_top) {
         "mov %0, esp"
     }
