@@ -10,12 +10,12 @@ The current compiler is available in the development environment as:
 build/aplc
 ```
 
-It reports itself as `capl 3.5`. The useful options for AdyOS are:
+It reports itself as `aplc 3.8.2`. The useful options for AdyOS are:
 
 - Input files such as `*.apl`.
 - Include directories with `-I <dir>`.
 - Assembly output with `--emit-asm`.
-- Stopping after assembly output with `--no-compile`.
+- Stopping after assembly output with `-no` / `--no-object`.
 - Assembly output naming with `--asm-output <file>`.
 - i386 target selection with `--arch i386 --sys-type i386`.
 - Output naming with `--output <file>` for compile/link outputs.
@@ -23,7 +23,7 @@ It reports itself as `capl 3.5`. The useful options for AdyOS are:
 - Assembler format selection with `--asm-format elf32`.
 - Linker selection with `--linker <tool>`.
 
-The SCons integration uses `--emit-asm --no-compile --asm-output <target>` for kernel APL sources.
+The SCons integration uses `--emit-asm -no --asm-output <target>` for kernel APL sources.
 
 ## SCons Integration
 
